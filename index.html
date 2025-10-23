@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Sam Enthnan AFB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-dark: #001f3f;
+            --navy-medium: #003366;
+            --navy-light: #004d99;
+            --accent-gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #001f3f 50%, #003366 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            display: block;
+        }
+
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            font-size: 1.1rem;
+            color: var(--navy-medium);
+            margin-bottom: 2rem;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .password-input:focus {
+            border-color: var(--navy-medium);
+            box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.1);
+            outline: none;
+            transform: translateY(-2px);
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy-medium));
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 31, 63, 0.4);
+        }
+
+        .back-btn {
+            background: white;
+            color: var(--navy-dark);
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid #d1d5db;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .back-btn:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .security-notice {
+            background: #f9fafb;
+            border-left: 4px solid var(--accent-gold);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .security-notice h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .security-notice p {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://i.imgur.com/74e5Ijv.jpeg" alt="Unit Logo" class="logo"/>
+        <h1 class="login-title">Admin Portal</h1>
+        <h2 class="login-subtitle">Sam Enthnan Air Force Base</h2>
+        
+        <input type="password" id="adminPassword" class="password-input" placeholder="Enter Admin Password" autocomplete="off">
+        
+        <button class="login-btn" onclick="login()">🔑 Login to Dashboard</button>
+        
+        <div class="error-message" id="errorMessage">❌ Invalid password! Please try again.</div>
+        
+        <button class="back-btn" onclick="goBack()">← Back to Main Form</button>
+        
+        <div class="security-notice">
+            <h4>🔒 Security Notice</h4>
+            <p>This portal is for authorized personnel only. All access attempts are logged.</p>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            const errorElement = document.getElementById('errorMessage');
+            
+            // 🔑 CHANGE THIS PASSWORD to your secure password!
+            if (password === '651BSGaccn') { 
+                // Redirect to main form with admin access
+                window.location.href = 'index.html?admin=true';
+            } else {
+                errorElement.style.display = 'block';
+                // Clear password field
+                document.getElementById('adminPassword').value = '';
+                // Shake animation for error
+                document.getElementById('adminPassword').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.getElementById('adminPassword').style.animation = '';
+                }, 500);
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Allow pressing Enter to login
+        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Focus on password field when page loads
+        document.getElementById('adminPassword').focus();
+    </script>
+</body>
+</html>
